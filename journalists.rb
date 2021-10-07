@@ -30,56 +30,49 @@ epenser_index = journalists.index("@epenser")
 #puts "L'index de @epenser est #{epenser_index}. "
 
 #8# Répartir par taille
-def array_length(arr,taille)
-    bb = arr.map {|x| x.length==taille}
-    bb.delete(false)
-    return bb.length
+def handle_by_length(journalists)
+  longuest = journalists.max { |a, b| a.length <=> b.length } 
+  shortest = journalists.min { |a, b| a.length <=> b.length } 
+  for i in (shortest.length)..(longuest.length)
+    puts "Handle de #{i-1} caractères : #{(journalists.select{|j| j.length==i}).length}" 
     end
-
-longuest = journalists.max { |a, b| a.length <=> b.length } 
-(longuest.length+1).times do |i|
-  #puts "array of #{i} : #{array_length(journalists,i)}" 
-  end
+end
+  
 
 
 puts "Bonjour et bienvenue dans notre liste de journalistes, entrez un chiffre entre 1 et 8 pour avoir la réponse à la question :"
 puts "1 : Nombre d'handle"
 puts "2 : Handle le plus court" 
-puts "3 : Nombre d'handle de 5 carctères"
+puts "3 : Nombre d'handle de 5 caractères"
 puts "4 : Nombre d'handle commençant par une majuscule"
 puts "5 : Liste des handle par ordre alphabétique"
 puts "6 : Liste par taille"
-puts "7 : Position dans l'array de @epenser"
+puts "7 : Position dans l'array de '@epenser'"
 puts "8 : Répartition des handle par taille"
 print "> "
-choice = gets.chomp.to_i
-    
-case choice
-when 1
-    puts "Il y a #{journalists.length} handle dans cet array."
-when 2
-    puts "Le handle le plus court est #{shortest}."
-when 3
-    puts "Le nombre de handle contenant 5 charactères, sans compter le @, est de #{five_count}. "
-when 4
-    puts "Le nombre de handle commençant par une majuscule est : #{maj_count}. "
-when 5
-    puts sorted
-when 6
-    puts journalists_char_length
-when 7
-    puts "L'index de @epenser est #{epenser_index}. "
-when 8
-    def array_length(arr,taille)
-        bb = arr.map {|x| x.length==taille}
-        bb.delete(false)
-        return bb.length
-        end
-    
-    longuest = journalists.max { |a, b| a.length <=> b.length } 
-    (longuest.length+1).times do |i|
-      puts "array of #{i} : #{array_length(journalists,i)}" 
-      end
-else
-    puts "Ton choix est incorrect, merci de réessayer."
+
+menu=true
+while menu==true
+choice = gets.chomp.to_i   
+  case choice
+  when 1
+      puts "Il y a #{journalists.length} handle dans cet array."
+  when 2
+      puts "Le handle le plus court est '#{shortest}'."
+  when 3
+      puts "Le nombre de handle contenant 5 caractères, sans compter le @, est de #{five_count}. "
+  when 4
+      puts "Le nombre de handle commençant par une majuscule est : #{maj_count}. "
+  when 5
+      puts sorted
+  when 6
+      puts journalists_char_length
+  when 7
+      puts "L'index de '@epenser' est #{epenser_index}. "
+  when 8
+      handle_by_length(journalists)
+  else
+      puts "Ton choix est incorrect, merci de réessayer."
+  end
+  print "> "
 end
